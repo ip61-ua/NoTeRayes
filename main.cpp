@@ -1,6 +1,6 @@
 #include <raylib.h>
 
-typedef enum GameScreen
+typedef enum
 {
   LOGO = 0,
   TITLE,
@@ -20,8 +20,41 @@ main (void)
 
   SetTargetFPS (60);
 
+  Vector2 ballPosition = { (float)screenWidth / 2, (float)screenHeight / 2 };
+  Color ballColor = DARKBLUE;
+
   while (!WindowShouldClose ())
     {
+      // if (IsKeyDown (KEY_RIGHT))
+      //   ballPosition.x += 3.0f;
+      // if (IsKeyDown (KEY_LEFT))
+      //   ballPosition.x -= 3.0f;
+      // if (IsKeyDown (KEY_UP))
+      //   ballPosition.y -= 3.0f;
+      // if (IsKeyDown (KEY_DOWN))
+      //   ballPosition.y += 3.0f;
+
+      // if (IsGamepadAvailable (0))
+      //   {
+      //     if (IsGamepadButtonDown (0, GAMEPAD_BUTTON_LEFT_FACE_RIGHT))
+      //       ballPosition.x += 3.0f;
+      //     if (IsGamepadButtonDown (0, GAMEPAD_BUTTON_LEFT_FACE_LEFT))
+      //       ballPosition.x -= 3.0f;
+      //     if (IsGamepadButtonDown (0, GAMEPAD_BUTTON_LEFT_FACE_UP))
+      //       ballPosition.y -= 3.0f;
+      //     if (IsGamepadButtonDown (0, GAMEPAD_BUTTON_LEFT_FACE_DOWN))
+      //       ballPosition.y += 3.0f;
+      //   }
+
+      ballPosition = GetMousePosition ();
+
+      if (IsMouseButtonDown (MOUSE_BUTTON_LEFT))
+        ballColor = YELLOW;
+      else if (IsMouseButtonDown (MOUSE_BUTTON_MIDDLE))
+        ballColor = LIME;
+      else if (IsMouseButtonDown (MOUSE_BUTTON_RIGHT))
+        ballColor = RED;
+
       switch (currentScreen)
         {
         case LOGO:
@@ -67,6 +100,7 @@ main (void)
           DrawText ("READY PLAYER ONE...", 10, 20, 10, WHITE);
           DrawText ("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 120, 220,
                     20, WHITE);
+          DrawCircleV (ballPosition, 50, ballColor);
           break;
 
         case ENDING:
